@@ -35,6 +35,8 @@
     <file url="file://$PROJECT_DIR$/xc-service-search/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xc-service-ucenter-auth/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xc-service-ucenter-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xc-service-ucenter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xc-service-ucenter/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
