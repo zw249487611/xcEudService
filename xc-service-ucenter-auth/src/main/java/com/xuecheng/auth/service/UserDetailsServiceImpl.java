@@ -59,7 +59,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userext.setPassword(new BCryptPasswordEncoder().encode("123"));*/
 
         //下面这个权限先用静态的，还没开发到权限这部分功能呢
-        xcUserExt.setPermissions(new ArrayList<XcMenu>());
+//        xcUserExt.setPermissions(new ArrayList<XcMenu>());
         if(xcUserExt == null){
             return null;
         }
@@ -70,6 +70,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //用户权限，这里暂时使用静态数据，最终会从数据库读取
         //从数据库获取权限
         List<XcMenu> permissions = xcUserExt.getPermissions();
+        if(permissions == null){
+            permissions = new ArrayList<>();
+        }
+        if (permissions == null) {
+            permissions = new ArrayList<>();
+        }
         List<String> user_permission = new ArrayList<>();
         permissions.forEach(item-> user_permission.add(item.getCode()));
 //        user_permission.add("course_get_baseinfo");

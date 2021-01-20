@@ -3,6 +3,7 @@ package com.xuecheng.auth.service;
 import com.alibaba.fastjson.JSON;
 import com.xuecheng.framework.client.XcServiceList;
 import com.xuecheng.framework.domain.ucenter.ext.AuthToken;
+import com.xuecheng.framework.domain.ucenter.ext.UserTokenStore;
 import com.xuecheng.framework.domain.ucenter.response.AuthCode;
 import com.xuecheng.framework.exception.ExceptionCast;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +64,23 @@ public class AuthService {
         return authToken;
 
     }
-    //存储到令牌到redis
 
+    //从redis查询令牌
+    public AuthToken getUserToken(String token) {
+
+        String key = "user_token:" + token;
+        //从redis中取到的令牌信息
+        String value = stringRedisTemplate.opsForValue().get(key);
+        //转成对象
+        try {
+            AuthToken authToken = JSON.parseObject(value, AuthToken.class);
+            return authToken;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    //存储到令牌到redis
     /**
      *
      * @param access_token 用户身份令牌
@@ -77,6 +93,19 @@ public class AuthService {
         stringRedisTemplate.boundValueOps(key).set(content,ttl, TimeUnit.SECONDS);
         Long expire = stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
         return expire>0;
+    }
+
+    //删除到redis中的token
+    /**
+     *
+     * @param access_token 用户身份令牌
+     * @return
+     */
+    public boolean delToken(String access_token){
+        String key = "user_token:" + access_token;
+        stringRedisTemplate.delete(key);
+//        Long expire = stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
+        return true;
     }
     //申请令牌
     private AuthToken applyToken(String username, String password, String clientId, String clientSecret){

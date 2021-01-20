@@ -1,5 +1,6 @@
 package com.xuecheng.manage_course;
 
+import com.xuecheng.framework.interceptor.FeignClientInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
@@ -35,5 +36,10 @@ public class ManageCourseApplication {
     @LoadBalanced //开启客户端负载均衡
     public RestTemplate restTemplate() {
         return new RestTemplate(new OkHttp3ClientHttpRequestFactory());
+    }
+
+    @Bean
+    public FeignClientInterceptor getFeignClientInterceptor(){
+        return new FeignClientInterceptor();
     }
 }
