@@ -28,7 +28,7 @@ public class GridFsTest {
     @Autowired
     GridFSBucket gridFSBucket;
 
-    //存文件
+    //存文件xx
     @Test
     public void testGridFsTemplate() throws Exception{
         //定义file
